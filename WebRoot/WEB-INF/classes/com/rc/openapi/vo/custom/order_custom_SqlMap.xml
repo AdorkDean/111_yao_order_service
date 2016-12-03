@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="order_custom_sql" >
+  <resultMap id="ibatorgenerated_BaseResultMap" class="com.rc.openapi.dubbo.model.TOrderModel" >
+    <result column="id" property="id" jdbcType="BIGINT" />
+    <result column="order_sn" property="orderSn" jdbcType="VARCHAR" />
+    <result column="order_source" property="orderSource" jdbcType="INTEGER" />
+    <result column="shipping_fee" property="shippingFee" jdbcType="DECIMAL" />
+    <result column="promotional_discount" property="promotionalDiscount" jdbcType="DECIMAL" />
+    <result column="coupon_discount" property="couponDiscount" jdbcType="DECIMAL" />
+    <result column="integration_discount" property="integrationDiscount" jdbcType="DECIMAL" />
+    <result column="use_integration" property="useIntegration" jdbcType="INTEGER" />
+    <result column="adjust_amount" property="adjustAmount" jdbcType="DECIMAL" />
+    <result column="paid_amount" property="paidAmount" jdbcType="DECIMAL" />
+    <result column="reward_integration" property="rewardIntegration" jdbcType="INTEGER" />
+    <result column="receiver" property="receiver" jdbcType="VARCHAR" />
+    <result column="area_id" property="areaId" jdbcType="BIGINT" />
+    <result column="area_name" property="areaName" jdbcType="VARCHAR" />
+    <result column="detailed_address" property="detailedAddress" jdbcType="VARCHAR" />
+    <result column="zip_code" property="zipCode" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="if_invoice" property="ifInvoice" jdbcType="INTEGER" />
+    <result column="invoice_title" property="invoiceTitle" jdbcType="VARCHAR" />
+    <result column="tax" property="tax" jdbcType="DECIMAL" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="payment_id" property="paymentId" jdbcType="BIGINT" />
+    <result column="delivery_id" property="deliveryId" jdbcType="BIGINT" />
+    <result column="member_id" property="memberId" jdbcType="BIGINT" />
+    <result column="coupon_id" property="couponId" jdbcType="BIGINT" />
+    <result column="is_push" property="isPush" jdbcType="INTEGER" />
+    <result column="push_time" property="pushTime" jdbcType="TIMESTAMP" />
+    <result column="delete_status" property="deleteStatus" jdbcType="INTEGER" />
+    <result column="order_status" property="orderStatus" jdbcType="INTEGER" />
+    <result column="order_amount" property="orderAmount" jdbcType="DECIMAL" />
+    <result column="payable_amount" property="payableAmount" jdbcType="DECIMAL" />
+    <result column="order_type" property="orderType" jdbcType="INTEGER" />
+    <result column="return_type" property="returnType" jdbcType="INTEGER" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="verify_status" property="verifyStatus" jdbcType="INTEGER" />
+    <result column="invoice_type" property="invoiceType" jdbcType="INTEGER" />
+    <result column="finish_date" property="finishDate" jdbcType="TIMESTAMP" />
+    <result column="longitude" property="longitude" jdbcType="VARCHAR" />
+    <result column="latitude" property="latitude" jdbcType="VARCHAR" />
+    <result column="store_id" property="storeId" jdbcType="VARCHAR" />
+    <result column="cancel_type" property="cancelType" jdbcType="INTEGER" />
+    <result column="cancel_reason" property="cancelReason" jdbcType="VARCHAR" />
+  </resultMap>
+  <!--订单商品列表 分页查询-->
+    <select id="selectOrderListCenterByPage" resultMap="ibatorgenerated_BaseResultMap" parameterClass="java.util.HashMap">
+         select id, order_sn, order_source, shipping_fee, promotional_discount, coupon_discount,
+         integration_discount, use_integration, adjust_amount, paid_amount, reward_integration,
+         receiver, area_id, area_name, detailed_address, zip_code, phone, if_invoice, invoice_title,
+         tax, remark, payment_id, delivery_id, member_id, coupon_id, is_push, push_time, delete_status,
+         order_status, order_amount, payable_amount, order_type, return_type, create_date,
+         verify_status, invoice_type, finish_date, longitude, latitude, store_id,cancel_type,
+                      cancel_reason
+         from t_order t where delete_status =0 
+         <isNotNull prepend="and" property="orderSn" >
+	        t.order_sn like  '%$orderSn$%'
+	    </isNotNull>
+         <isNotNull prepend="and" property="fromDate">
+		  DATE_FORMAT(t.create_date ,'%Y-%m-%d') &gt;= #fromDate#
+		 </isNotNull>
+         <isNotNull prepend="and" property="toDate">
+		  DATE_FORMAT(t.create_date ,'%Y-%m-%d') &lt;= #toDate#
+		 </isNotNull>
+         <isNotNull prepend="and" property="memberId" >
+	        t.member_id =  #memberId#
+	     </isNotNull>
+         <isNotNull prepend="and" property="orderStatus" >
+	        t.order_status =  #orderStatus#
+	     </isNotNull>
+	     order by t.create_date desc
+	     limit $pageInfo.start$ ,$pageInfo.pageSize$
+	</select>
+
+	<!-- 订单商品列表 分页查询统计 -->
+	<select id="selectOrderListCenterCount" resultClass="java.lang.Integer" parameterClass="java.util.HashMap">
+	 select count(t.id)
+	         from t_order t where delete_status =0 
+	         <isNotNull prepend="and" property="orderSn" >
+		        t.order_sn like  '%$orderSn$%'
+		    </isNotNull>
+	         <isNotNull prepend="and" property="fromDate">
+			  DATE_FORMAT(t.create_date ,'%Y-%m-%d') &gt;= #fromDate#
+			 </isNotNull>
+	         <isNotNull prepend="and" property="toDate">
+			  DATE_FORMAT(t.create_date ,'%Y-%m-%d') &lt;= #toDate#
+			 </isNotNull>
+	         <isNotNull prepend="and" property="memberId" >
+		        t.member_id =  #memberId#
+		     </isNotNull>
+	         <isNotNull prepend="and" property="orderStatus" >
+		        t.order_status =  #orderStatus#
+		     </isNotNull>
+		     order by t.create_date desc
+	</select>
+
+  <resultMap id="order_goods_BaseResultMap" class="com.rc.openapi.dubbo.model.TGoodModel" >
+    <result column="goods_id" property="goodsid" jdbcType="BIGINT" />
+    <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+    <result column="short_name" property="shortName" jdbcType="VARCHAR" />
+    <result column="spec" property="spec" jdbcType="VARCHAR" />
+    <result column="abbreviation_picture" property="abbreviationPicture" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="quantity" property="quantity" jdbcType="INTEGER" />
+    <result column="refund_process" property="refundProcess" jdbcType="INTEGER" />
+  </resultMap>
+  
+   <resultMap id="order_goods_norefund_BaseResultMap" class="com.rc.openapi.dubbo.model.TOrderGoodModel" >
+    <result column="goods_id" property="goodsid" jdbcType="BIGINT" />
+    <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+    <result column="goodsno" property="goodsNo" jdbcType="VARCHAR" />
+    <result column="short_name" property="shortName" jdbcType="VARCHAR" />
+    <result column="spec" property="spec" jdbcType="VARCHAR" />
+    <result column="abbreviation_picture" property="abbreviationPicture" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="quantity" property="quantity" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <!-- 根据订单id查询该订单下商品项信息-->
+	<select id="selectOrderItemGoodsNoReturnByOrderId" resultMap="order_goods_norefund_BaseResultMap" parameterClass="java.util.HashMap">
+	 SELECT
+	  t.goods_id,
+	  t1.goodsno,
+	  t1.goods_name,
+	  t1.short_name,
+	  t1.spec,
+	  t1.abbreviation_picture,
+	  t.price,
+	  t.quantity
+	FROM
+		t_order_item t
+	LEFT JOIN t_goods t1 ON t.goods_id = t1.id
+	where t.order_id =#orderId#
+	<isNotNull prepend="and" property="reviews">
+	     t.if_reviews =#reviews#
+	</isNotNull>
+	</select>
+  
+  
+  <!-- 单个订单的商品查询 包含是否发起退款-->
+	<select id="selectOrderItemGoodsByOrderId" resultMap="order_goods_BaseResultMap" parameterClass="java.util.HashMap">
+	 SELECT
+	  t.goods_id,
+	  t1.goods_name,
+	  t1.short_name,
+	  t1.spec,
+	  t1.abbreviation_picture,
+	  t.price,
+	  t.quantity,
+	  t.refund_process
+	FROM
+		t_order_item t
+	LEFT JOIN t_goods t1 ON t.goods_id = t1.id
+	where t.order_id =#orderId#
+	</select>
+   
+   <!-- 锁定某个商品的库存 -->
+   <select id="selectByPrimaryKeyForUpdate" resultClass="java.util.HashMap" parameterClass="java.util.HashMap" >
+    select id
+    from t_goods
+    where id = #id# for update
+  </select>
+    <!-- 减少某个商品的库存 -->
+   <update id="updateGoodStockById" parameterClass="java.util.HashMap" >
+      update t_goods t set t.stock = (t.stock-#quantity#) where t.id =#id#
+   </update>
+   <!-- 增加某个商品的库存 -->
+  <update id="updateGoodAddStockById" parameterClass="java.util.HashMap" >
+      update t_goods t set t.stock = (t.stock+#quantity#) where t.id =#id#
+   </update>
+   <!-- 获取退款订单的订单号 -->
+   <select id="select_new_return_ordersn" resultClass="java.lang.String"
+		parameterClass="java.util.HashMap">
+		call p_t_return_ordersn(#len#,@ordersn)
+	</select>
+   
+   <!-- 根据用户id 统计该用户各个状态订单总数 -->
+   <select id="select_order_count_by_orderstatus_memberid" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+      select  t.order_status,COUNT(t.id) as orderCount from t_order t 
+      where t.delete_status=0 and t.member_id = #memberid# 
+      <isNotNull prepend="and" property="startDate">
+			DATE_FORMAT(t.create_date ,'%Y-%m-%d') &gt;= #startDate#
+	  </isNotNull>
+      <isNotNull prepend="and" property="endDate">
+			DATE_FORMAT(t.create_date ,'%Y-%m-%d') &lt;= #endDate#
+	  </isNotNull>
+       GROUP BY t.order_status
+   </select>
+   
+   <!-- 根据用户id 统计该用户待评论订单个数 -->
+   <select id="select_order_evaluate_count_memberid" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+      
+	SELECT
+		COUNT(L.id) AS revCount
+	FROM
+		(
+			SELECT DISTINCT
+				t.id
+			FROM
+				t_order t
+			LEFT JOIN t_order_item oi ON oi.order_id = t.id
+			WHERE
+				oi.if_reviews = 0
+			AND t.order_status = 3
+			AND t.delete_status = 0
+			AND t.member_id = #memberid#
+			<isNotNull prepend="and" property="startDate">
+			  DATE_FORMAT(t.create_date ,'%Y-%m-%d') &gt;= #startDate#
+			 </isNotNull>
+			  <isNotNull prepend="and" property="endDate">
+			  DATE_FORMAT(t.create_date ,'%Y-%m-%d') &lt;= #endDate#
+			 </isNotNull>
+		) L
+   </select>
+   
+   
+   
+<!-- 订单中心列表    杨洁亮 -->
+
+<select id="selectOrderListByPage" resultClass="java.util.HashMap" parameterClass="java.util.Map">
+SELECT DISTINCT t.id,t.order_sn,t.order_amount,t.receiver,t.order_status,DATE_FORMAT(t.create_date ,'%Y/%m/%d') as create_date,(select IF(count(toi.id)=0,0,1) from t_order_item toi where toi.order_id=t.id and t.order_status=3 and toi.if_reviews=0) as recount  FROM t_order t 
+LEFT JOIN t_order_item oi ON t.id=oi.order_id
+WHERE t.delete_status=0 and t.member_id=#memberId#
+ <isNotNull prepend="and" property="ordertype">
+ 	<isEqual property="ordertype" compareValue="1">  <!-- 待支付订单 -->
+ 	t.order_status=0
+ 	</isEqual>
+	 <isEqual property="ordertype" compareValue="2">  <!-- 待收货订单 -->
+	 	t.order_status=2
+	 </isEqual>
+	 	 <isEqual property="ordertype" compareValue="3">  <!-- 待评价订单 -->
+	 	t.order_status=3 and oi.if_reviews=0 
+	 </isEqual>
+	  <isEqual property="ordertype" compareValue="4"> <!-- 待发货订单 --> 
+	 	t.order_status=1 
+	 </isEqual>
+	  <isEqual property="ordertype" compareValue="5"> <!-- 历史订单 -->
+	 	t.order_status=3 
+	 </isEqual>
+ </isNotNull>
+ <isNotNull prepend="and" property="orderno" >
+	        t.order_sn like  '%$orderno$%'
+	    </isNotNull>
+ 
+  <isNotNull prepend="and" property="startDate">
+  DATE_FORMAT(t.create_date ,'%Y-%m-%d') &gt;= #startDate#
+ </isNotNull>
+  <isNotNull prepend="and" property="endDate">
+  DATE_FORMAT(t.create_date ,'%Y-%m-%d') &lt;= #endDate#
+ </isNotNull>
+ order by t.create_date desc
+  LIMIT $pageInfo.start$,$pageInfo.end$
+</select>
+
+<!-- 订单中心计数    杨洁亮 -->
+<select id="selectOrderListCount" resultClass="java.lang.Integer" parameterClass="java.util.Map">
+SELECT Count(DISTINCT t.id) FROM t_order t 
+LEFT JOIN t_order_item oi ON t.id=oi.order_id
+WHERE t.delete_status=0 and t.member_id=#memberId#
+ <isNotNull prepend="and" property="ordertype">
+ 	<isEqual property="ordertype" compareValue="1">  <!-- 待支付订单 -->
+ 	t.order_status=0
+ 	</isEqual>
+	 <isEqual property="ordertype" compareValue="2">  <!-- 待收货订单 -->
+	 	t.order_status =2
+	 </isEqual>
+	 	 <isEqual property="ordertype" compareValue="3">  <!-- 待评价订单 -->
+	 	t.order_status=3 and oi.if_reviews=0 
+	 </isEqual>
+	  <isEqual property="ordertype" compareValue="4"> <!-- 待发货订单 --> 
+	 	t.order_status=1 
+	 </isEqual>
+	  <isEqual property="ordertype" compareValue="5"> <!-- 历史订单 -->
+	 	t.order_status=3 
+	 </isEqual>
+ </isNotNull>
+  <isNotNull prepend="and" property="orderno" >
+	        t.order_sn like  '%$orderno$%'
+	    </isNotNull>
+ 
+  <isNotNull prepend="and" property="startDate">
+  DATE_FORMAT(t.create_date ,'%Y-%m-%d') &gt;= #startDate#
+ </isNotNull>
+  <isNotNull prepend="and" property="endDate">
+  DATE_FORMAT(t.create_date ,'%Y-%m-%d') &lt;= #endDate#
+ </isNotNull>
+</select>
+
+<!-- 订单商品列表    杨洁亮 -->
+
+<select id="selectGoodsListByOrderId" resultClass="java.util.HashMap" parameterClass="java.util.Map">
+select oi.*,g.abbreviation_picture,g.short_name,g.goods_name,g.spec FROM t_order_item oi
+left JOIN t_goods g ON g.id=oi.goods_id
+where 1=1 AND oi.order_id=#orderid#
+</select>
+
+	<!-- 订单详情-物流信息 马龙 -->
+	<resultMap id="order_shipment_BaseResultMap" class="com.rc.openapi.dubbo.vo.TOrderShipment">
+		<result column="logistics_no" property="logisticsNo" jdbcType="VARCHAR" />
+		<result column="logistics_name" property="logisticsName" jdbcType="VARCHAR" />
+		<result column="shipment_dt" property="shipmentDt" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<!-- 订单id查询物流信息 马龙 -->
+	<select id="selectShipmentByOrderId" resultMap="order_shipment_BaseResultMap" parameterClass="java.lang.Long">
+		SELECT
+			tos.logistics_name,
+			tos.logistics_no,
+			tos.shipment_dt
+		FROM t_order_shipment tos
+		WHERE tos.order_id = #{orderId}#
+	</select>
+	<!-- 订单详情-flow下的付款时间 马龙 -->
+	<resultMap id="order_flow_BaseResultMap" class="com.rc.openapi.dubbo.vo.TOrderFlow">
+		<result column="pay_date" property="payDate" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<!-- 订单id查询付款日期 马龙 -->
+	<select id="selectFlowByOrderId" resultMap="order_flow_BaseResultMap" parameterClass="java.lang.Long">
+		SELECT pay_date FROM t_order_flow tof WHERE tof.order_id = #{orderId}#
+	</select>
+	
+	<!-- 订单id查询订单状态为已完成是否评论  马龙 -->
+	<select id="selectReviewsByOrderId" resultClass="java.lang.Integer" parameterClass="java.lang.Long">
+		SELECT
+			IF (count(toi.id) = 0, 0, 1)
+		FROM
+			t_order_item toi LEFT JOIN t_order t ON t.id = toi.order_id
+		WHERE
+			t.id = #orderId#
+		AND t.order_status = 3
+		AND toi.if_reviews = 0
+	</select>
+</sqlMap>

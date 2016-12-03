@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMapConfig PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN" "sql-map-config-2.dtd">
+ <sqlMapConfig>
+    <settings cacheModelsEnabled="true" enhancementEnabled="true"
+              lazyLoadingEnabled="true" errorTracingEnabled="true" maxRequests="32"
+              maxSessions="10" maxTransactions="5" useStatementNamespaces="true"/>
+   <!-- 自定义sqlmap -->
+   <sqlMap resource="com/rc/openapi/vo/custom/order_custom_SqlMap.xml"/>
+   <sqlMap resource="com/rc/openapi/vo/custom/order_return_SqlMap.xml"/>
+   
+   
+   <!-- 系统生成sqlmap -->
+   <sqlMap resource="com/rc/openapi/vo/sqlmap/t_order_SqlMap.xml"/>
+   <sqlMap resource="com/rc/openapi/vo/sqlmap/t_order_item_SqlMap.xml"/>
+   <sqlMap resource="com/rc/openapi/vo/sqlmap/t_return_image_SqlMap.xml"/>
+   <sqlMap resource="com/rc/openapi/vo/sqlmap/t_return_item_SqlMap.xml"/>
+   <sqlMap resource="com/rc/openapi/vo/sqlmap/t_return_SqlMap.xml"/>
+   <sqlMap resource="com/rc/openapi/vo/sqlmap/c_payment_way_SqlMap.xml"/>
+   <sqlMap resource="com/rc/openapi/vo/sqlmap/t_sys_parameter_SqlMap.xml"/>
+   <sqlMap resource="com/rc/openapi/vo/sqlmap/t_member_integral_SqlMap.xml"/>
+   <sqlMap resource="com/rc/openapi/vo/sqlmap/t_goods_comment_SqlMap.xml"/>
+</sqlMapConfig> 

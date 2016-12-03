@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
+	
+     <bean id="orderservicedubboapi" class="com.rc.openapi.serviceApiImpl.OrderServiceDubboApiImpl">
+          <property name="tordermanager" ref="tordermanager" />
+          <property name="tsysparametermanager" ref="tsysparametermanager" />
+          <property name="opensqlmanage" ref="opensqlmanage" />
+          <property name="torderitemmanager" ref="torderitemmanager" />
+	 </bean>
+	<bean id="orderreturnservicedubboapi" class="com.rc.openapi.serviceApiImpl.OrderReturnServiceDubboApiImpl">
+          <property name="tordermanager" ref="tordermanager" />
+          <property name="torderitemmanager" ref="torderitemmanager" />
+          <property name="treturnmanager" ref="treturnmanager" />
+          <property name="treturnitemmanager" ref="treturnitemmanager" />
+          <property name="treturnimagemanager" ref="treturnimagemanager" />
+          <property name="opensqlmanage" ref="opensqlmanage" />
+	</bean>
+	
+	<bean id="ordercommentservicedubboapi" class="com.rc.openapi.serviceApiImpl.OrderCommentServiceDubboApiImpl">
+          <property name="tordermanager" ref="tordermanager" />
+          <property name="torderitemmanager" ref="torderitemmanager" />
+          <property name="tgoodscommentmanager" ref="tgoodscommentmanager" />
+	</bean>
+</beans>

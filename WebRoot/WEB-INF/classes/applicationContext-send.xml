@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+	<!-- JMS TOPIC MODEL -->
+	<!-- TOPIC链接工厂 -->
+	<bean id="topicSendConnectionFactory" class="org.apache.activemq.spring.ActiveMQConnectionFactory">
+		<property name="brokerURL" value="failover:tcp://192.168.40.248:61616" />
+		<property name="useAsyncSend" value="true" />
+	</bean>
+
+	<!-- 定义主题 -->
+	<bean id="myTopic" class="org.apache.activemq.command.ActiveMQTopic">
+		<constructor-arg value="normandy.topic" />
+	</bean>
+
+	<!-- 消息转换器 -->
+<!-- 	<bean id="messageConvertForSys" class="com.rc.portal.jms.MessageConvertForSys"></bean> -->
+
+	<!-- TOPIC send jms模板 -->
+	<bean id="topicSendJmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+		<property name="connectionFactory" ref="topicSendConnectionFactory"></property>
+		<property name="defaultDestination" ref="myTopic" />
+<!-- 		<property name="messageConverter" ref="messageConvertForSys" /> -->
+		<!-- 开启订阅模式 -->
+		<property name="pubSubDomain" value="true" />
+		<property name="explicitQosEnabled" value="true" /><!-- deliveryMode, priority, timeToLive 的开关，要生效，必须配置为true，默认false-->  
+		<property name="deliveryMode" value="2" /><!-- 1-非持久化 2-持久化 -->
+		<property name="sessionAcknowledgeMode" value="1" /> 
+	</bean>
+
+	<!-- 消息发送方 -->
+	<bean id="topicMessageSender" class="com.rc.portal.jms.MessageSender">
+		<property name="jmsTemplate" ref="topicSendJmsTemplate"></property>
+	</bean>
+</beans> 

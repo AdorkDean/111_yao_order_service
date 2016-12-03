@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="drug_common">
+        <wb-resource deploy-path="/" source-path="/WebRoot" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/util"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/router"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/conf_spring"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/conf_sys"/>
+        <dependent-module archiveName="lucene-core-3.0.3.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/111_commonslib/lib_runtime/lucene3.0.3/lucene-core-3.0.3.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="IKAnalyzer3.2.8.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/111_commonslib/lib_runtime/lucene3.0.3/IKAnalyzer3.2.8.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="lucene-highlighter-3.0.3.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/111_commonslib/lib_runtime/lucene3.0.3/lucene-highlighter-3.0.3.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="lucene-memory-3.0.3.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/111_commonslib/lib_runtime/lucene3.0.3/lucene-memory-3.0.3.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="111_upmanframework.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/111_upmanframework/111_upmanframework">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commonsproject.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/111_commonsproject/111_commonsproject">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="111_yao_order_api.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/111_yao_order_api/111_yao_order_api">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="dubbo-2.4.9.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/111_commonslib/lib_runtime/dubbo/dubbo-2.4.9.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="javassist-3.15.0-GA.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/111_commonslib/lib_runtime/javassist/javassist-3.15.0-GA.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="zkclient-0.1.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/111_commonslib/lib_runtime/zookeeper/zkclient-0.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="zookeeper-3.4.5.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/111_commonslib/lib_runtime/zookeeper/zookeeper-3.4.5.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="netty-3.2.5.Final.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/111_commonslib/lib_runtime/netty/netty-3.2.5.Final.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="111_yao_service_client.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/111_yao_service_client/111_yao_service_client">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <property name="java-output-path" value="/drug_common/WebRoot/WEB-INF/classes"/>
+        <property name="context-root" value="/111_yao_order_service"/>
+        <property name="me-merge-utility-modules" value="true"/>
+    </wb-module>
+</project-modules>

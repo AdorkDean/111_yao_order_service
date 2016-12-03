@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="t_return_item" >
+  <resultMap id="ibatorgenerated_BaseResultMap" class="com.rc.openapi.dubbo.vo.TReturnItem" >
+    <result column="id" property="id" jdbcType="BIGINT" />
+    <result column="goods_id" property="goodsId" jdbcType="BIGINT" />
+    <result column="quantity" property="quantity" jdbcType="INTEGER" />
+    <result column="product_amount" property="productAmount" jdbcType="DECIMAL" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="return_id" property="returnId" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="ibatorgenerated_Example_Where_Clause" >
+    <iterate property="oredCriteria" conjunction="or" prepend="where" removeFirstPrepend="iterate" >
+      <isEqual property="oredCriteria[].valid" compareValue="true" >
+        (
+        <iterate prepend="and" property="oredCriteria[].criteriaWithoutValue" conjunction="and" >
+          $oredCriteria[].criteriaWithoutValue[]$
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithSingleValue" conjunction="and" >
+          $oredCriteria[].criteriaWithSingleValue[].condition$
+            #oredCriteria[].criteriaWithSingleValue[].value#
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithListValue" conjunction="and" >
+          $oredCriteria[].criteriaWithListValue[].condition$
+          <iterate property="oredCriteria[].criteriaWithListValue[].values" open="(" close=")" conjunction="," >
+            #oredCriteria[].criteriaWithListValue[].values[]#
+          </iterate>
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithBetweenValue" conjunction="and" >
+          $oredCriteria[].criteriaWithBetweenValue[].condition$
+          #oredCriteria[].criteriaWithBetweenValue[].values[0]# and
+          #oredCriteria[].criteriaWithBetweenValue[].values[1]#
+        </iterate>
+        )
+      </isEqual>
+    </iterate>
+  </sql>
+  <select id="ibatorgenerated_selectByExample" resultMap="ibatorgenerated_BaseResultMap" parameterClass="com.rc.openapi.dubbo.vo.TReturnItemExample" >
+    select id, goods_id, quantity, product_amount, create_time, return_id
+    from t_return_item
+    <isParameterPresent >
+      <include refid="t_return_item.ibatorgenerated_Example_Where_Clause" />
+      <isNotNull property="orderByClause" >
+        order by $orderByClause$
+      </isNotNull>
+    </isParameterPresent>
+  </select>
+  <select id="ibatorgenerated_selectByPrimaryKey" resultMap="ibatorgenerated_BaseResultMap" parameterClass="com.rc.openapi.dubbo.vo.TReturnItem" >
+    select id, goods_id, quantity, product_amount, create_time, return_id
+    from t_return_item
+    where id = #id:BIGINT#
+  </select>
+  <delete id="ibatorgenerated_deleteByPrimaryKey" parameterClass="com.rc.openapi.dubbo.vo.TReturnItem" >
+    delete from t_return_item
+    where id = #id:BIGINT#
+  </delete>
+  <delete id="ibatorgenerated_deleteByExample" parameterClass="com.rc.openapi.dubbo.vo.TReturnItemExample" >
+    delete from t_return_item
+    <include refid="t_return_item.ibatorgenerated_Example_Where_Clause" />
+  </delete>
+  <insert id="ibatorgenerated_insert" parameterClass="com.rc.openapi.dubbo.vo.TReturnItem" >
+    insert into t_return_item (id, goods_id, quantity, product_amount, create_time, return_id)
+    values (#id:BIGINT#, #goodsId:BIGINT#, #quantity:INTEGER#, #productAmount:DECIMAL#,
+      #createTime:TIMESTAMP#, #returnId:BIGINT#)
+	<selectKey resultClass="long" keyProperty="id"> 
+		select LAST_INSERT_ID()
+	</selectKey>
+  </insert>
+
+  <insert id="ibatorgenerated_insertSelective" parameterClass="com.rc.openapi.dubbo.vo.TReturnItem" >
+    insert into t_return_item
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="id" >
+        id
+      </isNotNull>
+      <isNotNull prepend="," property="goodsId" >
+        goods_id
+      </isNotNull>
+      <isNotNull prepend="," property="quantity" >
+        quantity
+      </isNotNull>
+      <isNotNull prepend="," property="productAmount" >
+        product_amount
+      </isNotNull>
+      <isNotNull prepend="," property="createTime" >
+        create_time
+      </isNotNull>
+      <isNotNull prepend="," property="returnId" >
+        return_id
+      </isNotNull>
+      )
+    </dynamic>
+    values
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="id" >
+        #id:BIGINT#
+      </isNotNull>
+      <isNotNull prepend="," property="goodsId" >
+        #goodsId:BIGINT#
+      </isNotNull>
+      <isNotNull prepend="," property="quantity" >
+        #quantity:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="productAmount" >
+        #productAmount:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="createTime" >
+        #createTime:TIMESTAMP#
+      </isNotNull>
+      <isNotNull prepend="," property="returnId" >
+        #returnId:BIGINT#
+      </isNotNull>
+      )
+    </dynamic>
+	<selectKey resultClass="long" keyProperty="id"> 
+		select LAST_INSERT_ID()
+	</selectKey>
+  </insert>
+
+  <select id="ibatorgenerated_countByExample" parameterClass="com.rc.openapi.dubbo.vo.TReturnItemExample" resultClass="java.lang.Integer" >
+    select count(*) from t_return_item
+    <include refid="t_return_item.ibatorgenerated_Example_Where_Clause" />
+  </select>
+  <update id="ibatorgenerated_updateByExampleSelective" >
+    update t_return_item
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="record.id" >
+        id = #record.id:BIGINT#
+      </isNotNull>
+      <isNotNull prepend="," property="record.goodsId" >
+        goods_id = #record.goodsId:BIGINT#
+      </isNotNull>
+      <isNotNull prepend="," property="record.quantity" >
+        quantity = #record.quantity:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="record.productAmount" >
+        product_amount = #record.productAmount:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="record.createTime" >
+        create_time = #record.createTime:TIMESTAMP#
+      </isNotNull>
+      <isNotNull prepend="," property="record.returnId" >
+        return_id = #record.returnId:BIGINT#
+      </isNotNull>
+    </dynamic>
+    <isParameterPresent >
+      <include refid="t_return_item.ibatorgenerated_Example_Where_Clause" />
+    </isParameterPresent>
+  </update>
+  <update id="ibatorgenerated_updateByExample" >
+    update t_return_item
+    set id = #record.id:BIGINT#,
+      goods_id = #record.goodsId:BIGINT#,
+      quantity = #record.quantity:INTEGER#,
+      product_amount = #record.productAmount:DECIMAL#,
+      create_time = #record.createTime:TIMESTAMP#,
+      return_id = #record.returnId:BIGINT#
+    <isParameterPresent >
+      <include refid="t_return_item.ibatorgenerated_Example_Where_Clause" />
+    </isParameterPresent>
+  </update>
+  <update id="ibatorgenerated_updateByPrimaryKeySelective" parameterClass="com.rc.openapi.dubbo.vo.TReturnItem" >
+    update t_return_item
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="goodsId" >
+        goods_id = #goodsId:BIGINT#
+      </isNotNull>
+      <isNotNull prepend="," property="quantity" >
+        quantity = #quantity:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="productAmount" >
+        product_amount = #productAmount:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="createTime" >
+        create_time = #createTime:TIMESTAMP#
+      </isNotNull>
+      <isNotNull prepend="," property="returnId" >
+        return_id = #returnId:BIGINT#
+      </isNotNull>
+    </dynamic>
+    where id = #id:BIGINT#
+  </update>
+  <update id="ibatorgenerated_updateByPrimaryKey" parameterClass="com.rc.openapi.dubbo.vo.TReturnItem" >
+    update t_return_item
+    set goods_id = #goodsId:BIGINT#,
+      quantity = #quantity:INTEGER#,
+      product_amount = #productAmount:DECIMAL#,
+      create_time = #createTime:TIMESTAMP#,
+      return_id = #returnId:BIGINT#
+    where id = #id:BIGINT#
+  </update>
+  <select id="selectByExampleByPage" resultMap="ibatorgenerated_BaseResultMap" parameterClass="com.rc.openapi.dubbo.vo.TReturnItemExample" >
+                    select id, goods_id, quantity, product_amount, create_time, return_id
+                    from t_return_item
+                    <isParameterPresent >
+                      <include refid="t_return_item.ibatorgenerated_Example_Where_Clause" />
+                      <isNotNull property="orderByClause" >
+                        order by $orderByClause$
+                      </isNotNull>
+                    </isParameterPresent>
+					limit $pageInfo.start$ ,$pageInfo.pageSize$
+  </select>
+</sqlMap>

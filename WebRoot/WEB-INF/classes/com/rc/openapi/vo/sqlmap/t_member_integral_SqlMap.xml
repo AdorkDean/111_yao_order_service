@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="t_member_integral" >
+  <resultMap id="ibatorgenerated_BaseResultMap" class="com.rc.openapi.dubbo.vo.TMemberIntegral" >
+    <result column="id" property="id" jdbcType="BIGINT" />
+    <result column="integral" property="integral" jdbcType="INTEGER" />
+    <result column="source" property="source" jdbcType="INTEGER" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="member_id" property="memberId" jdbcType="BIGINT" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="ibatorgenerated_Example_Where_Clause" >
+    <iterate property="oredCriteria" conjunction="or" prepend="where" removeFirstPrepend="iterate" >
+      <isEqual property="oredCriteria[].valid" compareValue="true" >
+        (
+        <iterate prepend="and" property="oredCriteria[].criteriaWithoutValue" conjunction="and" >
+          $oredCriteria[].criteriaWithoutValue[]$
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithSingleValue" conjunction="and" >
+          $oredCriteria[].criteriaWithSingleValue[].condition$
+            #oredCriteria[].criteriaWithSingleValue[].value#
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithListValue" conjunction="and" >
+          $oredCriteria[].criteriaWithListValue[].condition$
+          <iterate property="oredCriteria[].criteriaWithListValue[].values" open="(" close=")" conjunction="," >
+            #oredCriteria[].criteriaWithListValue[].values[]#
+          </iterate>
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithBetweenValue" conjunction="and" >
+          $oredCriteria[].criteriaWithBetweenValue[].condition$
+          #oredCriteria[].criteriaWithBetweenValue[].values[0]# and
+          #oredCriteria[].criteriaWithBetweenValue[].values[1]#
+        </iterate>
+        )
+      </isEqual>
+    </iterate>
+  </sql>
+  <select id="ibatorgenerated_selectByExample" resultMap="ibatorgenerated_BaseResultMap" parameterClass="com.rc.openapi.dubbo.vo.TMemberIntegralExample" >
+    select id, integral, source, create_date, member_id, remark
+    from t_member_integral
+    <isParameterPresent >
+      <include refid="t_member_integral.ibatorgenerated_Example_Where_Clause" />
+      <isNotNull property="orderByClause" >
+        order by $orderByClause$
+      </isNotNull>
+    </isParameterPresent>
+  </select>
+  <select id="ibatorgenerated_selectByPrimaryKey" resultMap="ibatorgenerated_BaseResultMap" parameterClass="com.rc.openapi.dubbo.vo.TMemberIntegral" >
+    select id, integral, source, create_date, member_id, remark
+    from t_member_integral
+    where id = #id:BIGINT#
+  </select>
+  <delete id="ibatorgenerated_deleteByPrimaryKey" parameterClass="com.rc.openapi.dubbo.vo.TMemberIntegral" >
+    delete from t_member_integral
+    where id = #id:BIGINT#
+  </delete>
+  <delete id="ibatorgenerated_deleteByExample" parameterClass="com.rc.openapi.dubbo.vo.TMemberIntegralExample" >
+    delete from t_member_integral
+    <include refid="t_member_integral.ibatorgenerated_Example_Where_Clause" />
+  </delete>
+  <insert id="ibatorgenerated_insert" parameterClass="com.rc.openapi.dubbo.vo.TMemberIntegral" >
+    insert into t_member_integral (id, integral, source, create_date, member_id, remark)
+    values (#id:BIGINT#, #integral:INTEGER#, #source:INTEGER#, #createDate:TIMESTAMP#,
+      #memberId:BIGINT#, #remark:VARCHAR#)
+	<selectKey resultClass="long" keyProperty="id"> 
+		select LAST_INSERT_ID()
+	</selectKey>
+  </insert>
+
+  <insert id="ibatorgenerated_insertSelective" parameterClass="com.rc.openapi.dubbo.vo.TMemberIntegral" >
+    insert into t_member_integral
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="id" >
+        id
+      </isNotNull>
+      <isNotNull prepend="," property="integral" >
+        integral
+      </isNotNull>
+      <isNotNull prepend="," property="source" >
+        source
+      </isNotNull>
+      <isNotNull prepend="," property="createDate" >
+        create_date
+      </isNotNull>
+      <isNotNull prepend="," property="memberId" >
+        member_id
+      </isNotNull>
+      <isNotNull prepend="," property="remark" >
+        remark
+      </isNotNull>
+      )
+    </dynamic>
+    values
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="id" >
+        #id:BIGINT#
+      </isNotNull>
+      <isNotNull prepend="," property="integral" >
+        #integral:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="source" >
+        #source:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="createDate" >
+        #createDate:TIMESTAMP#
+      </isNotNull>
+      <isNotNull prepend="," property="memberId" >
+        #memberId:BIGINT#
+      </isNotNull>
+      <isNotNull prepend="," property="remark" >
+        #remark:VARCHAR#
+      </isNotNull>
+      )
+    </dynamic>
+	<selectKey resultClass="long" keyProperty="id"> 
+		select LAST_INSERT_ID()
+	</selectKey>
+  </insert>
+
+  <select id="ibatorgenerated_countByExample" parameterClass="com.rc.openapi.dubbo.vo.TMemberIntegralExample" resultClass="java.lang.Integer" >
+    select count(*) from t_member_integral
+    <include refid="t_member_integral.ibatorgenerated_Example_Where_Clause" />
+  </select>
+  <update id="ibatorgenerated_updateByExampleSelective" >
+    update t_member_integral
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="record.id" >
+        id = #record.id:BIGINT#
+      </isNotNull>
+      <isNotNull prepend="," property="record.integral" >
+        integral = #record.integral:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="record.source" >
+        source = #record.source:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="record.createDate" >
+        create_date = #record.createDate:TIMESTAMP#
+      </isNotNull>
+      <isNotNull prepend="," property="record.memberId" >
+        member_id = #record.memberId:BIGINT#
+      </isNotNull>
+      <isNotNull prepend="," property="record.remark" >
+        remark = #record.remark:VARCHAR#
+      </isNotNull>
+    </dynamic>
+    <isParameterPresent >
+      <include refid="t_member_integral.ibatorgenerated_Example_Where_Clause" />
+    </isParameterPresent>
+  </update>
+  <update id="ibatorgenerated_updateByExample" >
+    update t_member_integral
+    set id = #record.id:BIGINT#,
+      integral = #record.integral:INTEGER#,
+      source = #record.source:INTEGER#,
+      create_date = #record.createDate:TIMESTAMP#,
+      member_id = #record.memberId:BIGINT#,
+      remark = #record.remark:VARCHAR#
+    <isParameterPresent >
+      <include refid="t_member_integral.ibatorgenerated_Example_Where_Clause" />
+    </isParameterPresent>
+  </update>
+  <update id="ibatorgenerated_updateByPrimaryKeySelective" parameterClass="com.rc.openapi.dubbo.vo.TMemberIntegral" >
+    update t_member_integral
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="integral" >
+        integral = #integral:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="source" >
+        source = #source:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="createDate" >
+        create_date = #createDate:TIMESTAMP#
+      </isNotNull>
+      <isNotNull prepend="," property="memberId" >
+        member_id = #memberId:BIGINT#
+      </isNotNull>
+      <isNotNull prepend="," property="remark" >
+        remark = #remark:VARCHAR#
+      </isNotNull>
+    </dynamic>
+    where id = #id:BIGINT#
+  </update>
+  <update id="ibatorgenerated_updateByPrimaryKey" parameterClass="com.rc.openapi.dubbo.vo.TMemberIntegral" >
+    update t_member_integral
+    set integral = #integral:INTEGER#,
+      source = #source:INTEGER#,
+      create_date = #createDate:TIMESTAMP#,
+      member_id = #memberId:BIGINT#,
+      remark = #remark:VARCHAR#
+    where id = #id:BIGINT#
+  </update>
+  <select id="selectByExampleByPage" resultMap="ibatorgenerated_BaseResultMap" parameterClass="com.rc.openapi.dubbo.vo.TMemberIntegralExample" >
+                    select id, integral, source, create_date, member_id, remark
+                    from t_member_integral
+                    <isParameterPresent >
+                      <include refid="t_member_integral.ibatorgenerated_Example_Where_Clause" />
+                      <isNotNull property="orderByClause" >
+                        order by $orderByClause$
+                      </isNotNull>
+                    </isParameterPresent>
+					limit $pageInfo.start$ ,$pageInfo.pageSize$
+  </select>   
+</sqlMap>

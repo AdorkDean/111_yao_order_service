@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="order_return" >
+	  <resultMap id="order_return_page_BaseResultMap" class="com.rc.openapi.dubbo.model.TOrderReturnModel" >
+	    <result column="id" property="id" jdbcType="BIGINT" />
+	    <result column="order_sn" property="orderSn" jdbcType="VARCHAR" />
+	    <result column="service_type" property="serviceType" jdbcType="INTEGER" />
+	    <result column="express_delivery" property="expressDelivery" jdbcType="VARCHAR" />
+	    <result column="express_company" property="expressCompany" jdbcType="VARCHAR" />
+	    <result column="shipper_phone" property="shipperPhone" jdbcType="VARCHAR" />
+	    <result column="member_id" property="memberId" jdbcType="BIGINT" />
+	    <result column="refund_amount" property="refundAmount" jdbcType="DECIMAL" />
+	    <result column="refund_describe" property="refundDescribe" jdbcType="VARCHAR" />
+	    <result column="order_status" property="orderStatus" jdbcType="INTEGER" />
+	    <result column="refund_account" property="refundAccount" jdbcType="VARCHAR" />
+	    <result column="refund_bank" property="refundBank" jdbcType="VARCHAR" />
+	    <result column="refund_remark" property="refundRemark" jdbcType="VARCHAR" />
+	    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+	    <result column="old_order_id" property="oldOrderId" jdbcType="BIGINT" />
+	    <result column="finish_dt" property="finishDt" jdbcType="TIMESTAMP" />
+	  </resultMap>
+	  
+	  
+	  
+	   <resultMap id="ibatorgenerated_SearchResultMap" class="com.rc.openapi.dubbo.model.TOrderReturnModel" >
+    <result column="id" property="id" jdbcType="BIGINT" />
+    <result column="order_sn" property="orderSn" jdbcType="VARCHAR" />
+    <result column="service_type" property="serviceType" jdbcType="INTEGER" />
+    <result column="express_delivery" property="expressDelivery" jdbcType="VARCHAR" />
+    <result column="express_company" property="expressCompany" jdbcType="VARCHAR" />
+    <result column="shipper_phone" property="shipperPhone" jdbcType="VARCHAR" />
+    <result column="member_id" property="memberId" jdbcType="BIGINT" />
+    <result column="refund_amount" property="refundAmount" jdbcType="DECIMAL" />
+    <result column="refund_describe" property="refundDescribe" jdbcType="VARCHAR" />
+    <result column="order_status" property="orderStatus" jdbcType="INTEGER" />
+    <result column="refund_account" property="refundAccount" jdbcType="VARCHAR" />
+    <result column="refund_bank" property="refundBank" jdbcType="VARCHAR" />
+    <result column="refund_remark" property="refundRemark" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="old_order_id" property="oldOrderId" jdbcType="BIGINT" />
+    <result column="user_name" property="userName" jdbcType="BIGINT" />
+    <result column="old_order_sn" property="oldOrderSn" jdbcType="VARCHAR" />
+    <result column="finish_dt" property="finishDt" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+	<select id="selectMemberByMemberId"  resultClass="java.util.HashMap"
+			parameterClass="java.util.HashMap" >
+		select t.id,t.`user_name`,t.`phone`
+		 from t_member t where t.id=#id:BIGINT#
+	</select>
+	<select id="selectGoodsInfoById"  resultClass="java.util.HashMap"
+			parameterClass="java.util.HashMap" >
+				SELECT 
+		g.goodsno,g.`SKU_ID`,  g.`goods_name`,g.`main_title`,gp.`price`
+		FROM
+		  t_goods g 
+		  LEFT JOIN t_goods_price gp 
+		    ON gp.`goods_id` = g.id AND gp.`price_type`=#priceType:VARCHAR#
+		WHERE g.id = #goodId:BIGINT# 
+		 limit 0,1
+	</select>
+
+
+    <select id="selectPageListByMap" resultMap="order_return_page_BaseResultMap"
+		parameterClass="java.util.HashMap">
+		SELECT
+		t.id,
+		t.order_sn,
+		t.service_type,
+		t.express_delivery,
+		t.express_company,
+		t.shipper_phone,
+		t.member_id,
+		t.refund_amount,
+		t.refund_describe,
+		t.order_status,
+		t.refund_account,
+		t.refund_bank,
+		t.refund_remark,
+		t.create_time,
+		t.old_order_id,
+		t.finish_dt
+		FROM
+		t_return t
+		WHERE 1=1
+		<isNotEmpty property="memberid" prepend="and">
+			t.member_id=$memberid$
+		</isNotEmpty>
+		<isNotEmpty property="returnOrderNo" prepend="and">
+			t.order_sn like '%$returnOrderNo$%'
+		</isNotEmpty>
+		<isNotEmpty property="fromDate" prepend="and">
+			t.create_time &gt;= '$fromDate$'
+		</isNotEmpty>
+		<isNotEmpty property="toDate" prepend="and">
+			t.create_time &lt;= '$toDate$'
+		</isNotEmpty>
+		<isNotEmpty property="statusIn" prepend="and">
+			t.order_status in 
+			<iterate open="(" close=")" conjunction="," property="statusIn" removeFirstPrepend="true">  
+				#statusIn[]#  
+			</iterate>  
+		</isNotEmpty>
+		<isNotEmpty property="serviceTypeIn" prepend="and">
+			t.service_type in 
+			<iterate open="(" close=")" conjunction="," property="serviceTypeIn" removeFirstPrepend="true">  
+				#serviceTypeIn[]#  
+			</iterate>  
+		</isNotEmpty>
+		ORDER BY t.id DESC
+		LIMIT $pageInfo.start$,$pageInfo.pageSize$
+	</select>
+
+	<select id="selectPageCountByMap" resultClass="int" parameterClass="java.util.HashMap">
+		SELECT COUNT(1) 
+		FROM
+		t_return t
+		WHERE 1=1
+		<isNotEmpty property="memberid" prepend="and">
+			t.member_id=$memberid$
+		</isNotEmpty>
+		<isNotEmpty property="returnOrderNo" prepend="and">
+			t.order_sn like '%$returnOrderNo$%'
+		</isNotEmpty>
+		<isNotEmpty property="fromDate" prepend="and">
+			t.create_time &gt;= '$fromDate$'
+		</isNotEmpty>
+		<isNotEmpty property="toDate" prepend="and">
+			t.create_time &lt;= '$toDate$'
+		</isNotEmpty>
+		<isNotEmpty property="statusIn" prepend="and">
+			t.order_status in 
+			<iterate open="(" close=")" conjunction="," property="statusIn" removeFirstPrepend="true">  
+				#statusIn[]#  
+			</iterate>  
+		</isNotEmpty>
+		<isNotEmpty property="serviceTypeIn" prepend="and">
+			t.service_type in 
+			<iterate open="(" close=")" conjunction="," property="serviceTypeIn" removeFirstPrepend="true">  
+				#serviceTypeIn[]#  
+			</iterate>  
+		</isNotEmpty>
+	</select>
+
+
+ <resultMap id="retun_goods_BaseResultMap" class="com.rc.openapi.dubbo.model.TGoodModel" >
+    <result column="goods_id" property="goodsid" jdbcType="BIGINT" />
+    <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+    <result column="short_name" property="shortName" jdbcType="VARCHAR" />
+    <result column="spec" property="spec" jdbcType="VARCHAR" />
+    <result column="abbreviation_picture" property="abbreviationPicture" jdbcType="VARCHAR" />
+    <result column="quantity" property="quantity" jdbcType="INTEGER" />
+  </resultMap>
+
+
+ <!-- 单个退款单的商品查询-->
+	<select id="selectReturnItemGoodsByReturnId" resultMap="retun_goods_BaseResultMap" parameterClass="java.util.HashMap">
+	 SELECT
+	  t.goods_id,
+	  t1.goods_name,
+	  t1.short_name,
+	  t1.spec,
+	  t1.abbreviation_picture,
+	  t.quantity
+	FROM
+		t_return_item t
+	LEFT JOIN t_goods t1 ON t.goods_id = t1.id
+	where t.return_id =#returnId#
+	</select>
+	
+	
+	<select id="select_new_return_ordersn" resultClass="java.lang.String"
+		parameterClass="java.util.Map">
+		call p_t_return_ordersn(#len#,@ordersn)
+	</select>
+	
+	
+	
+	
+	<select id="selectAllOrderReturn" resultMap="ibatorgenerated_SearchResultMap"
+		parameterClass="java.util.Map">
+		SELECT
+		t.id,
+		t.order_sn,
+		t.service_type,
+		t.express_delivery,
+		t.express_company,
+		t.shipper_phone,
+		t.member_id,
+		t.refund_amount,
+		t.refund_describe,
+		t.order_status,
+		t.refund_account,
+		t.refund_bank,
+		t.refund_remark,
+		t.create_time,
+		t.old_order_id,
+		t.finish_dt,
+		m.user_name,o.order_sn as old_order_sn
+		FROM
+		t_return t
+		LEFT JOIN t_member m
+		ON t.member_id = m.id
+		LEFT JOIN t_order o 
+		ON o.id=t.old_order_id
+		where 1=1
+		<isNotEmpty property="userName" prepend="and">
+			m.user_name like
+			'%$userName$%'
+		</isNotEmpty>
+		<isNotEmpty property="refundDescribe" prepend="and">
+			t.refund_describe like
+			'%$refundDescribe$%'
+		</isNotEmpty>
+		
+		<isNotEmpty property="memberid" prepend="and">
+			t.member_id=$memberid$
+		</isNotEmpty>
+		<isNotEmpty property="returnOrderNo" prepend="and">
+			t.order_sn like '%$returnOrderNo$%'
+		</isNotEmpty>
+		<isNotEmpty property="fromDate" prepend="and">
+			t.create_time &gt;= '$fromDate$'
+		</isNotEmpty>
+		<isNotEmpty property="toDate" prepend="and">
+			t.create_time &lt;= '$toDate$'
+		</isNotEmpty>
+		<isNotEmpty property="statusIn" prepend="and">
+			t.order_status in 
+			<iterate open="(" close=")" conjunction="," property="statusIn" removeFirstPrepend="true">  
+				#statusIn[]#  
+			</iterate>  
+		</isNotEmpty>
+		<isNotEmpty property="serviceTypeIn" prepend="and">
+			t.service_type in 
+			<iterate open="(" close=")" conjunction="," property="serviceTypeIn" removeFirstPrepend="true">  
+				#serviceTypeIn[]#  
+			</iterate>  
+		</isNotEmpty>
+		
+		
+		
+		ORDER BY t.id DESC
+		LIMIT $pageInfo.start$,$pageInfo.pageSize$
+	</select>
+	
+	
+	<select id="selectCountAllOrderReturn" resultClass="int" parameterClass="java.util.Map">
+		SELECT COUNT(1) FROM
+		t_return t
+		LEFT JOIN t_member m
+		ON t.member_id = m.id
+		LEFT JOIN t_order o 
+		ON o.id=t.old_order_id
+		where 1=1
+		<isNotEmpty property="userName" prepend="and">
+			m.user_name like
+			'%$userName$%'
+		</isNotEmpty>
+		<isNotEmpty property="refundDescribe" prepend="and">
+			t.refund_describe like
+			'%$refundDescribe$%'
+		</isNotEmpty>
+		
+		<isNotEmpty property="memberid" prepend="and">
+			t.member_id=$memberid$
+		</isNotEmpty>
+		<isNotEmpty property="returnOrderNo" prepend="and">
+			t.order_sn like '%$returnOrderNo$%'
+		</isNotEmpty>
+		<isNotEmpty property="fromDate" prepend="and">
+			t.create_time &gt;= '$fromDate$'
+		</isNotEmpty>
+		<isNotEmpty property="toDate" prepend="and">
+			t.create_time &lt;= '$toDate$'
+		</isNotEmpty>
+		<isNotEmpty property="statusIn" prepend="and">
+			t.order_status in 
+			<iterate open="(" close=")" conjunction="," property="statusIn" removeFirstPrepend="true">  
+				#statusIn[]#  
+			</iterate>  
+		</isNotEmpty>
+		<isNotEmpty property="serviceTypeIn" prepend="and">
+			t.service_type in 
+			<iterate open="(" close=")" conjunction="," property="serviceTypeIn" removeFirstPrepend="true">  
+				#serviceTypeIn[]#  
+			</iterate>  
+		</isNotEmpty>
+		
+		
+	</select>
+</sqlMap>

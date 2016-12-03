@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="c_payment_way" >
+  <resultMap id="ibatorgenerated_BaseResultMap" class="com.rc.openapi.dubbo.vo.CPaymentWay" >
+    <result column="id" property="id" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="payment_way" property="paymentWay" jdbcType="INTEGER" />
+    <result column="icon" property="icon" jdbcType="VARCHAR" />
+    <result column="timeout" property="timeout" jdbcType="INTEGER" />
+    <result column="intro" property="intro" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="sort" property="sort" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="payment_code" property="paymentCode" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="ibatorgenerated_Example_Where_Clause" >
+    <iterate property="oredCriteria" conjunction="or" prepend="where" removeFirstPrepend="iterate" >
+      <isEqual property="oredCriteria[].valid" compareValue="true" >
+        (
+        <iterate prepend="and" property="oredCriteria[].criteriaWithoutValue" conjunction="and" >
+          $oredCriteria[].criteriaWithoutValue[]$
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithSingleValue" conjunction="and" >
+          $oredCriteria[].criteriaWithSingleValue[].condition$
+            #oredCriteria[].criteriaWithSingleValue[].value#
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithListValue" conjunction="and" >
+          $oredCriteria[].criteriaWithListValue[].condition$
+          <iterate property="oredCriteria[].criteriaWithListValue[].values" open="(" close=")" conjunction="," >
+            #oredCriteria[].criteriaWithListValue[].values[]#
+          </iterate>
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithBetweenValue" conjunction="and" >
+          $oredCriteria[].criteriaWithBetweenValue[].condition$
+          #oredCriteria[].criteriaWithBetweenValue[].values[0]# and
+          #oredCriteria[].criteriaWithBetweenValue[].values[1]#
+        </iterate>
+        )
+      </isEqual>
+    </iterate>
+  </sql>
+  <select id="ibatorgenerated_selectByExample" resultMap="ibatorgenerated_BaseResultMap" parameterClass="com.rc.openapi.dubbo.vo.CPaymentWayExample" >
+    select id, name, payment_way, icon, timeout, intro, content, sort, create_time, payment_code
+    from c_payment_way
+    <isParameterPresent >
+      <include refid="c_payment_way.ibatorgenerated_Example_Where_Clause" />
+      <isNotNull property="orderByClause" >
+        order by $orderByClause$
+      </isNotNull>
+    </isParameterPresent>
+  </select>
+  <select id="ibatorgenerated_selectByPrimaryKey" resultMap="ibatorgenerated_BaseResultMap" parameterClass="com.rc.openapi.dubbo.vo.CPaymentWay" >
+    select id, name, payment_way, icon, timeout, intro, content, sort, create_time, payment_code
+    from c_payment_way
+    where id = #id:BIGINT#
+  </select>
+  <delete id="ibatorgenerated_deleteByPrimaryKey" parameterClass="com.rc.openapi.dubbo.vo.CPaymentWay" >
+    delete from c_payment_way
+    where id = #id:BIGINT#
+  </delete>
+  <delete id="ibatorgenerated_deleteByExample" parameterClass="com.rc.openapi.dubbo.vo.CPaymentWayExample" >
+    delete from c_payment_way
+    <include refid="c_payment_way.ibatorgenerated_Example_Where_Clause" />
+  </delete>
+  <insert id="ibatorgenerated_insert" parameterClass="com.rc.openapi.dubbo.vo.CPaymentWay" >
+    insert into c_payment_way (id, name, payment_way, icon, timeout, intro, content, sort,
+      create_time, payment_code)
+    values (#id:BIGINT#, #name:VARCHAR#, #paymentWay:INTEGER#, #icon:VARCHAR#, #timeout:INTEGER#,
+      #intro:VARCHAR#, #content:VARCHAR#, #sort:INTEGER#, #createTime:TIMESTAMP#,
+      #paymentCode:VARCHAR#)
+	<selectKey resultClass="long" keyProperty="id"> 
+		select LAST_INSERT_ID()
+	</selectKey>
+  </insert>
+
+  <insert id="ibatorgenerated_insertSelective" parameterClass="com.rc.openapi.dubbo.vo.CPaymentWay" >
+    insert into c_payment_way
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="id" >
+        id
+      </isNotNull>
+      <isNotNull prepend="," property="name" >
+        name
+      </isNotNull>
+      <isNotNull prepend="," property="paymentWay" >
+        payment_way
+      </isNotNull>
+      <isNotNull prepend="," property="icon" >
+        icon
+      </isNotNull>
+      <isNotNull prepend="," property="timeout" >
+        timeout
+      </isNotNull>
+      <isNotNull prepend="," property="intro" >
+        intro
+      </isNotNull>
+      <isNotNull prepend="," property="content" >
+        content
+      </isNotNull>
+      <isNotNull prepend="," property="sort" >
+        sort
+      </isNotNull>
+      <isNotNull prepend="," property="createTime" >
+        create_time
+      </isNotNull>
+      <isNotNull prepend="," property="paymentCode" >
+        payment_code
+      </isNotNull>
+      )
+    </dynamic>
+    values
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="id" >
+        #id:BIGINT#
+      </isNotNull>
+      <isNotNull prepend="," property="name" >
+        #name:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="paymentWay" >
+        #paymentWay:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="icon" >
+        #icon:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="timeout" >
+        #timeout:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="intro" >
+        #intro:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="content" >
+        #content:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="sort" >
+        #sort:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="createTime" >
+        #createTime:TIMESTAMP#
+      </isNotNull>
+      <isNotNull prepend="," property="paymentCode" >
+        #paymentCode:VARCHAR#
+      </isNotNull>
+      )
+    </dynamic>
+	<selectKey resultClass="long" keyProperty="id"> 
+		select LAST_INSERT_ID()
+	</selectKey>
+  </insert>
+
+  <select id="ibatorgenerated_countByExample" parameterClass="com.rc.openapi.dubbo.vo.CPaymentWayExample" resultClass="java.lang.Integer" >
+    select count(*) from c_payment_way
+    <include refid="c_payment_way.ibatorgenerated_Example_Where_Clause" />
+  </select>
+  <update id="ibatorgenerated_updateByExampleSelective" >
+    update c_payment_way
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="record.id" >
+        id = #record.id:BIGINT#
+      </isNotNull>
+      <isNotNull prepend="," property="record.name" >
+        name = #record.name:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.paymentWay" >
+        payment_way = #record.paymentWay:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="record.icon" >
+        icon = #record.icon:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.timeout" >
+        timeout = #record.timeout:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="record.intro" >
+        intro = #record.intro:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.content" >
+        content = #record.content:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.sort" >
+        sort = #record.sort:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="record.createTime" >
+        create_time = #record.createTime:TIMESTAMP#
+      </isNotNull>
+      <isNotNull prepend="," property="record.paymentCode" >
+        payment_code = #record.paymentCode:VARCHAR#
+      </isNotNull>
+    </dynamic>
+    <isParameterPresent >
+      <include refid="c_payment_way.ibatorgenerated_Example_Where_Clause" />
+    </isParameterPresent>
+  </update>
+  <update id="ibatorgenerated_updateByExample" >
+    update c_payment_way
+    set id = #record.id:BIGINT#,
+      name = #record.name:VARCHAR#,
+      payment_way = #record.paymentWay:INTEGER#,
+      icon = #record.icon:VARCHAR#,
+      timeout = #record.timeout:INTEGER#,
+      intro = #record.intro:VARCHAR#,
+      content = #record.content:VARCHAR#,
+      sort = #record.sort:INTEGER#,
+      create_time = #record.createTime:TIMESTAMP#,
+      payment_code = #record.paymentCode:VARCHAR#
+    <isParameterPresent >
+      <include refid="c_payment_way.ibatorgenerated_Example_Where_Clause" />
+    </isParameterPresent>
+  </update>
+  <update id="ibatorgenerated_updateByPrimaryKeySelective" parameterClass="com.rc.openapi.dubbo.vo.CPaymentWay" >
+    update c_payment_way
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="name" >
+        name = #name:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="paymentWay" >
+        payment_way = #paymentWay:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="icon" >
+        icon = #icon:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="timeout" >
+        timeout = #timeout:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="intro" >
+        intro = #intro:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="content" >
+        content = #content:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="sort" >
+        sort = #sort:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="createTime" >
+        create_time = #createTime:TIMESTAMP#
+      </isNotNull>
+      <isNotNull prepend="," property="paymentCode" >
+        payment_code = #paymentCode:VARCHAR#
+      </isNotNull>
+    </dynamic>
+    where id = #id:BIGINT#
+  </update>
+  <update id="ibatorgenerated_updateByPrimaryKey" parameterClass="com.rc.openapi.dubbo.vo.CPaymentWay" >
+    update c_payment_way
+    set name = #name:VARCHAR#,
+      payment_way = #paymentWay:INTEGER#,
+      icon = #icon:VARCHAR#,
+      timeout = #timeout:INTEGER#,
+      intro = #intro:VARCHAR#,
+      content = #content:VARCHAR#,
+      sort = #sort:INTEGER#,
+      create_time = #createTime:TIMESTAMP#,
+      payment_code = #paymentCode:VARCHAR#
+    where id = #id:BIGINT#
+  </update>
+  <select id="selectByExampleByPage" resultMap="ibatorgenerated_BaseResultMap" parameterClass="com.rc.openapi.dubbo.vo.CPaymentWayExample" >
+                    select id, name, payment_way, icon, timeout, intro, content, sort, create_time, payment_code
+                    from c_payment_way
+                    <isParameterPresent >
+                      <include refid="c_payment_way.ibatorgenerated_Example_Where_Clause" />
+                      <isNotNull property="orderByClause" >
+                        order by $orderByClause$
+                      </isNotNull>
+                    </isParameterPresent>
+					limit $pageInfo.start$ ,$pageInfo.pageSize$
+  </select>
+</sqlMap>

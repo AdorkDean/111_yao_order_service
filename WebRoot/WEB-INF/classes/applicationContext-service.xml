@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
+	<aop:config proxy-target-class="true">
+		<aop:advisor pointcut="execution(* *..serviceApiImpl.*.*(..))"
+			advice-ref="txAdvice" />
+	</aop:config>
+
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="get*" read-only="true" rollback-for="Exception" />
+			<tx:method name="*" rollback-for="Exception" />
+		</tx:attributes>
+	</tx:advice>
+	
+    <bean id="opensqlmanage" class="com.rc.openapi.service.impl.OpenSqlManageImpl">
+		<property name="opensqldao" ref="opensqldao" />
+	</bean>
+	<bean id="tsysparametermanager" class="com.rc.openapi.service.impl.TSysParameterManagerImpl">
+        <property name="tsysparameterdao" ref="tsysparameterdao" />
+    </bean>
+    <bean id="tordermanager" class="com.rc.openapi.service.impl.TOrderManagerImpl">
+         <property name="torderdao" ref="torderdao" />
+         <property name="opensqldao" ref="opensqldao" />
+         <property name="torderitemdao" ref="torderitemdao" />
+         <property name="treturnitemdao" ref="treturnitemdao" />
+         <property name="treturndao" ref="treturndao" />
+         <property name="cpaymentwaydao" ref="cpaymentwaydao" />
+         <property name="tmemberintegraldao" ref="tmemberintegraldao" />
+         <property name="topicMessageSender" ref="topicMessageSender" />
+         
+    </bean>
+    <bean id="torderitemmanager" class="com.rc.openapi.service.impl.TOrderItemManagerImpl">
+        <property name="torderitemdao" ref="torderitemdao" />
+        <property name="opensqldao" ref="opensqldao" />
+    </bean>
+    
+    <bean id="cpaymentwaymanager" class="com.rc.openapi.service.impl.CPaymentWayManagerImpl">
+        <property name="cpaymentwaydao" ref="cpaymentwaydao" />
+    </bean>
+    
+    <bean id="treturnimagemanager" class="com.rc.openapi.service.impl.TReturnImageManagerImpl">
+        <property name="treturnimagedao" ref="treturnimagedao" />
+    </bean>
+
+    <bean id="treturnitemmanager" class="com.rc.openapi.service.impl.TReturnItemManagerImpl">
+        <property name="treturnitemdao" ref="treturnitemdao" />
+    </bean>
+
+    <bean id="treturnmanager" class="com.rc.openapi.service.impl.TReturnManagerImpl">
+        <property name="treturndao" ref="treturndao" />
+        <property name="treturnitemdao" ref="treturnitemdao" />
+        <property name="torderdao" ref="torderdao" />
+        <property name="torderitemdao" ref="torderitemdao" />
+        <property name="treturnimagedao" ref="treturnimagedao" />
+        <property name="opensqldao" ref="opensqldao" />
+    </bean>
+    <bean id="tmemberintegralmanager" class="com.rc.openapi.service.impl.TMemberIntegralManagerImpl">
+        <property name="tmemberintegraldao" ref="tmemberintegraldao" />
+    </bean>
+    <bean id="tgoodscommentmanager" class="com.rc.openapi.service.impl.TGoodsCommentManagerImpl">
+        <property name="tgoodscommentdao" ref="tgoodscommentdao" />
+        <property name="torderitemdao" ref="torderitemdao" />
+        <property name="torderdao" ref="torderdao" />
+    </bean>
+</beans>

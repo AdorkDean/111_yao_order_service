@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="drug_common"
+  id="myeclipse.1268441354609"
+  context-root="/drugcommon"
+  j2ee-spec="5.0"
+  archive="drug_common.war">
+  <attributes>
+    <attribute name="webrootdir" value="/WebRoot" />
+  </attributes>
+</project-module>
+

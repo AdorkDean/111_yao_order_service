@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="t_return_image" >
+  <resultMap id="ibatorgenerated_BaseResultMap" class="com.rc.openapi.dubbo.vo.TReturnImage" >
+    <result column="id" property="id" jdbcType="BIGINT" />
+    <result column="image_url" property="imageUrl" jdbcType="VARCHAR" />
+    <result column="return_id" property="returnId" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="ibatorgenerated_Example_Where_Clause" >
+    <iterate property="oredCriteria" conjunction="or" prepend="where" removeFirstPrepend="iterate" >
+      <isEqual property="oredCriteria[].valid" compareValue="true" >
+        (
+        <iterate prepend="and" property="oredCriteria[].criteriaWithoutValue" conjunction="and" >
+          $oredCriteria[].criteriaWithoutValue[]$
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithSingleValue" conjunction="and" >
+          $oredCriteria[].criteriaWithSingleValue[].condition$
+            #oredCriteria[].criteriaWithSingleValue[].value#
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithListValue" conjunction="and" >
+          $oredCriteria[].criteriaWithListValue[].condition$
+          <iterate property="oredCriteria[].criteriaWithListValue[].values" open="(" close=")" conjunction="," >
+            #oredCriteria[].criteriaWithListValue[].values[]#
+          </iterate>
+        </iterate>
+        <iterate prepend="and" property="oredCriteria[].criteriaWithBetweenValue" conjunction="and" >
+          $oredCriteria[].criteriaWithBetweenValue[].condition$
+          #oredCriteria[].criteriaWithBetweenValue[].values[0]# and
+          #oredCriteria[].criteriaWithBetweenValue[].values[1]#
+        </iterate>
+        )
+      </isEqual>
+    </iterate>
+  </sql>
+  <select id="ibatorgenerated_selectByExample" resultMap="ibatorgenerated_BaseResultMap" parameterClass="com.rc.openapi.dubbo.vo.TReturnImageExample" >
+    select id, image_url, return_id
+    from t_return_image
+    <isParameterPresent >
+      <include refid="t_return_image.ibatorgenerated_Example_Where_Clause" />
+      <isNotNull property="orderByClause" >
+        order by $orderByClause$
+      </isNotNull>
+    </isParameterPresent>
+  </select>
+  <select id="ibatorgenerated_selectByPrimaryKey" resultMap="ibatorgenerated_BaseResultMap" parameterClass="com.rc.openapi.dubbo.vo.TReturnImage" >
+    select id, image_url, return_id
+    from t_return_image
+    where id = #id:BIGINT#
+  </select>
+  <delete id="ibatorgenerated_deleteByPrimaryKey" parameterClass="com.rc.openapi.dubbo.vo.TReturnImage" >
+    delete from t_return_image
+    where id = #id:BIGINT#
+  </delete>
+  <delete id="ibatorgenerated_deleteByExample" parameterClass="com.rc.openapi.dubbo.vo.TReturnImageExample" >
+    delete from t_return_image
+    <include refid="t_return_image.ibatorgenerated_Example_Where_Clause" />
+  </delete>
+  <insert id="ibatorgenerated_insert" parameterClass="com.rc.openapi.dubbo.vo.TReturnImage" >
+    insert into t_return_image (id, image_url, return_id)
+    values (#id:BIGINT#, #imageUrl:VARCHAR#, #returnId:BIGINT#)
+	<selectKey resultClass="long" keyProperty="id"> 
+		select LAST_INSERT_ID()
+	</selectKey>
+  </insert>
+
+  <insert id="ibatorgenerated_insertSelective" parameterClass="com.rc.openapi.dubbo.vo.TReturnImage" >
+    insert into t_return_image
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="id" >
+        id
+      </isNotNull>
+      <isNotNull prepend="," property="imageUrl" >
+        image_url
+      </isNotNull>
+      <isNotNull prepend="," property="returnId" >
+        return_id
+      </isNotNull>
+      )
+    </dynamic>
+    values
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="id" >
+        #id:BIGINT#
+      </isNotNull>
+      <isNotNull prepend="," property="imageUrl" >
+        #imageUrl:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="returnId" >
+        #returnId:BIGINT#
+      </isNotNull>
+      )
+    </dynamic>
+	<selectKey resultClass="long" keyProperty="id"> 
+		select LAST_INSERT_ID()
+	</selectKey>
+  </insert>
+
+  <select id="ibatorgenerated_countByExample" parameterClass="com.rc.openapi.dubbo.vo.TReturnImageExample" resultClass="java.lang.Integer" >
+    select count(*) from t_return_image
+    <include refid="t_return_image.ibatorgenerated_Example_Where_Clause" />
+  </select>
+  <update id="ibatorgenerated_updateByExampleSelective" >
+    update t_return_image
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="record.id" >
+        id = #record.id:BIGINT#
+      </isNotNull>
+      <isNotNull prepend="," property="record.imageUrl" >
+        image_url = #record.imageUrl:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.returnId" >
+        return_id = #record.returnId:BIGINT#
+      </isNotNull>
+    </dynamic>
+    <isParameterPresent >
+      <include refid="t_return_image.ibatorgenerated_Example_Where_Clause" />
+    </isParameterPresent>
+  </update>
+  <update id="ibatorgenerated_updateByExample" >
+    update t_return_image
+    set id = #record.id:BIGINT#,
+      image_url = #record.imageUrl:VARCHAR#,
+      return_id = #record.returnId:BIGINT#
+    <isParameterPresent >
+      <include refid="t_return_image.ibatorgenerated_Example_Where_Clause" />
+    </isParameterPresent>
+  </update>
+  <update id="ibatorgenerated_updateByPrimaryKeySelective" parameterClass="com.rc.openapi.dubbo.vo.TReturnImage" >
+    update t_return_image
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="imageUrl" >
+        image_url = #imageUrl:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="returnId" >
+        return_id = #returnId:BIGINT#
+      </isNotNull>
+    </dynamic>
+    where id = #id:BIGINT#
+  </update>
+  <update id="ibatorgenerated_updateByPrimaryKey" parameterClass="com.rc.openapi.dubbo.vo.TReturnImage" >
+    update t_return_image
+    set image_url = #imageUrl:VARCHAR#,
+      return_id = #returnId:BIGINT#
+    where id = #id:BIGINT#
+  </update>
+  <select id="selectByExampleByPage" resultMap="ibatorgenerated_BaseResultMap" parameterClass="com.rc.openapi.dubbo.vo.TReturnImageExample" >
+                    select id, image_url, return_id
+                    from t_return_image
+                    <isParameterPresent >
+                      <include refid="t_return_image.ibatorgenerated_Example_Where_Clause" />
+                      <isNotNull property="orderByClause" >
+                        order by $orderByClause$
+                      </isNotNull>
+                    </isParameterPresent>
+					limit $pageInfo.start$ ,$pageInfo.pageSize$
+  </select>
+</sqlMap>
